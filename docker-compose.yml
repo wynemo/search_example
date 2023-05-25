@@ -1,0 +1,24 @@
+version: '2'
+services:
+  mysql:
+    image: 'mysql/mysql-server:8.0'
+    volumes:
+       - './mysql-data/:/var/lib/mysql'
+    restart: 'always'
+    expose:
+      - '3306'
+    ports:
+      - '3306:3306'
+    environment:
+       MYSQL_ROOT_PASSWORD: '*99e*ub&2Fu^P'
+       MYSQL_DATABASE: 'search_db'
+       MYSQL_USER: 'user'
+       MYSQL_PASSWORD: '@2XmR@77hog53'
+  search:
+    image: 'search_service'
+    volumes:
+       - './search_example/:/search_example/'
+    restart: 'always'
+    expose:
+      - '8080'
+    command: /venv/bin/python /search_example/manage.py runserver
