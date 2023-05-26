@@ -2,7 +2,9 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.utils.decorators import method_decorator
 
+from .cache import cache_page
 from .models import Candidate
 from .paginators import CustomPagination
 from .serializers import CandidateSerializer, SearchResultSerializer
@@ -41,11 +43,12 @@ class CandidateView(APIView):
                 ),
                 "page": openapi.Schema(type=openapi.TYPE_INTEGER, default=1),
                 "page_size": openapi.Schema(
-                    type=openapi.TYPE_INTEGER, default=20, min=1, max=20
+                    type=openapi.TYPE_INTEGER, default=20, min=1, max=100
                 ),
             },
         ),
     )
+    @method_decorator(cache_page(120))
     def post(self, request):
         skill = request.data.get("skill_name")
         if not skill:
