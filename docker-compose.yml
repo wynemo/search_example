@@ -20,5 +20,7 @@ services:
        - './search_example/:/search_example/'
     restart: 'always'
     expose:
-      - '8080'
-    command: /venv/bin/python /search_example/manage.py runserver
+      - '8000'
+    ports:
+      - '8000:8000'
+    command: /venv/bin/python /search_example/manage.py runserver 0.0.0.0:8000
