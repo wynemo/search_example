@@ -2,3 +2,5 @@ django
 djangorestframework
 mysqlclient
 drf-yasg
+diskcache
+uwsgi
