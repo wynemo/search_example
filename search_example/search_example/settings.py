@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5kx-tg%4w8t*hw!gw1@$lbsku+a@+g917cj0jq=$*_%r-43yin'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -130,8 +130,17 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SWAGGER_SETTINGS = {
-    "DEFAULT_PAGINATOR_INSPECTORS": [
-        'search_api.inspector.PageNumberPaginatorInspectorClass',
-    ]
+CACHES = {
+    'default': {
+        'BACKEND': 'diskcache.DjangoCache',
+        "LOCATION": "/var/tmp/django_cache",
+        'TIMEOUT': 300,
+        # ^-- Django setting for default timeout of each key.
+        'SHARDS': 8,
+        'DATABASE_TIMEOUT': 0.010,  # 10 milliseconds
+        # ^-- Timeout for each DjangoCache database transaction.
+        'OPTIONS': {
+            'size_limit': 2 ** 30   # 1 gigabyte
+        },
+    },
 }
