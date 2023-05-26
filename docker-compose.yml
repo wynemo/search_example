@@ -23,4 +23,4 @@ services:
       - '8000'
     ports:
       - '8000:8000'
-    command: /venv/bin/python /search_example/manage.py runserver 0.0.0.0:8000
+    command: /venv/bin/uwsgi --ini /search_example/uwsgi.ini
