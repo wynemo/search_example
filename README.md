@@ -1,5 +1,7 @@
 # search_example
 
+a DRF demo, with swagger
+
 ## Quick start
 
 install docker(with docker compose), in bash, type `sh build.sh` to run this site, then in your browser,  access http://127.0.0.1:8000/swagger/
